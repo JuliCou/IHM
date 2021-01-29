@@ -3,10 +3,6 @@ import tkinter as tk
 from qt_classes.fenetres import FenetrePrincipale
 
 
-
-# Première étape : création d'une application Qt avec QApplication
-#    afin d'avoir un fonctionnement correct avec IDLE ou Spyder
-#    on vérifie s'il existe déjà une instance de QApplication
 app = QApplication.instance() 
 if not app: # sinon on crée une instance de QApplication
     app = QApplication(["Moodle"])

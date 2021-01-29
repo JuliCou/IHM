@@ -5,9 +5,9 @@ IHM project
 Python 3.8  
 requirements.txt
 ```
-    virtualenv venv
-    source venv/Scripts/activate
-    pip install -r requirements.txt
+    $  virtualenv venv
+    $  source venv/Scripts/activate
+    $  pip install -r requirements.txt
 ```
 
 ## Data
