@@ -2,7 +2,7 @@
 IHM project
 
 ## Requirements
-Python 3.8
+Python 3.8  
 requirements.txt
 ```
     virtualenv venv
