@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        div{
+            width: 80%;
+            margin: 20px auto; /*Centre les div dans la page*/
+        }
+
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction:row;
+        }
+
+        .titre_boite {
+            display: block;
+            font-weight: bolder;
+            font-family: Arial;
+            text-align: center;
+            color: #ffffff;
+            font-size: 24px;
+        }
+
+        .titre{
+            text-align: center;
+            font-weight: bolder;
+            font-size:40px;
+        }
+
+        .sous_boite{
+            display: flex;
+            background-color: #00d994;
+            width: 20rem;
+            height: 30rem;
+            flex-direction: column;
+            padding: 0px 40px 0px 40px;
+        }
+
+        .sous_boite_{
+            display: block;
+            background-color: #00d994;
+            width: 20rem;
+            height: 15rem;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 7px;
+            border-radius: 3px;  
+            background: #ffffff;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 17px;
+            height: 17px;
+            border-radius: 50%; 
+            background: #ffffff;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+        }
+        
+    </style>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Tableau de bord de l'université</title>
+        <!-- Favicons -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+      
+
+    <body style="background-color:#ececec;">
+        <div class="titre">
+                Outils de gestion Moodle
+        </div>
+
+        <div class="box">
+
+            <!-- <div class="card bg-success px-3 pb-2 pt-3 mx-3 my-3" style="width: 25rem;">
+                <div class="titre_boite">
+                    Professeur
+                </div>
+            </div> -->
+
+            <div class="sous_boite">
+                <div class="titre_boite">
+                    Professeur
+                    <br/>
+                    <br/>
+                </div>
+                
+                <p>
+                    <img src="../static/avatars/img_code_module.png" width="35" height="35"> test
+                </p>
+                <p>
+                    <img src="../static/avatars/img_code_presentation.png" width="35" height="35"> test
+                </p>
+                    <!-- <div class="slidecontainer">
+                        <input type="range" min="0" max="100" value="50" step="10" class="slider" id="myRange">
+                    </div> -->
+                    <input type="range" list="tickmarks" value="0" max="100" min="0" step="10">
+
+                    <datalist id="tickmarks">
+                        <option value="0" label="0%">
+                        <option value="10">
+                        <option value="20">
+                        <option value="30">
+                        <option value="40">
+                        <option value="50" label="50%">
+                        <option value="60">
+                        <option value="70">
+                        <option value="80">
+                        <option value="90">
+                        <option value="100" label="100%">
+                    </datalist>
+
+                </h2>
+                
+            </div>
+
+            <div class="sous_boite">
+                <div class="titre_boite">
+                    Elève
+                    <br/>
+                    <br/>
+                </div>
+
+                <p>
+                    <img src="../static/avatars/avatar.png" width="25" height="25">
+                </p>
+                
+            </div>
+        </div>
+
+        <form action = "http://localhost:5000/index" method = "post">
+            <button type="submit" name="choix" value="profil_prof">Professeur</button>          
+            <button type="submit" name="choix" value="profil_eleve">Elève</button>
+        </form>  
+    </body>
+
+</html>
