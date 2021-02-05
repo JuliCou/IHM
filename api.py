@@ -78,18 +78,63 @@ def routage():
         route = request.form.getlist("choix")
 
         if route[0] == 'profil_prof':
+            # Récupération données formulaire
             code_module = request.form["code_module"]
             code_presentation = request.form["code_presentation"]
-            temps = request.form["temps"]
-            print(code_module, code_presentation, temps)
-            dic = {"code_module": code_module, "code_presentation":code_presentation, "date_perc": list(range(0, 110, 10))}
-            return render_template('dashboard_prof.html', dic=dic)
+            temps = int(request.form["temps"])
+            dic = {"code_module": code_module, "code_presentation": code_presentation, "temps": temps}
+
+            # Récupération données pour affichage tableau de bord du prof
+            students = studentInfo[(studentInfo.code_module==code_module)&(studentInfo.code_presentation==code_presentation)]
+            dfStudents = dic_c_df[temps][(studentInfo.code_module==code_module)&(studentInfo.code_presentation==code_presentation)]
+            dfStudents = dic_df[temps][dic_df[temps]["_id"].isin(list(dfStudents["_id"]))]
+            # Si pas d'étudiants
+            if dfStudents.shape[0] == 0:
+                return render_template("page_erreur_prof.html")
+
+            # Si étudiants trouvés :
+            # Prédictions
+            target_classes = dic_models[temps].classes_
+            predictions = dic_models[temps].predict(dfStudents.drop(['final_result', '_id'], axis=1))
+            accuracy = accuracy_score(predictions, list(dfStudents['final_result']))
+            proba = dic_models[temps].predict_proba(dfStudents.drop(['final_result', '_id'], axis=1))
+            dic["precision"] = round(accuracy*100)
+            # donnees = {"code_module":module, "code_presentation":presentation, "date":date, "precision": accuracy}
+            data_OK = []
+            data_alerte = []
+            for i in range(dfStudents.shape[0]):
+                dt = {}
+                dt["id_student"] = students.iloc[i].id_student
+                dt["_id"] = dfStudents.iloc[i]._id
+                dt["final_result"] = students.iloc[i].final_result
+                dt["predicted_result"] = predictions[i]
+                dt["proba"] = [{"classe" : target_classes[j], "proba": proba[i][j]} for j in range(len(proba[i]))]
+                if predictions[i]=="Withdrawn" or predictions[i]=="Fail":
+                    data_alerte.append(dt)
+                else:
+                    data_OK.append(dt)
+            dic["nb_students"] = dfStudents.shape[0]
+            dic["nb_students_reussite"] = len(data_OK)
+            dic["nb_students_alerte"] = len(data_alerte)
+
+            # Caractéristiques importantes
+            # Feature Importance - modèle général
+            importance = dic_models[temps].get_booster().get_score(importance_type='weight')
+            features_importance_df2 = pd.DataFrame({"Features":list(importance.keys()), "Importance":list(importance.values())})
+            features_importance_df2 = features_importance_df2.sort_values(by="Importance", ascending=False)
+            # fi_df2 = features_importance_df2.iloc[range(10)]
+            feature = features_importance_df2["Features"].iloc[0]
+            i = 1
+            while feature == "" or "bias" in feature.lower() or "id_student" in feature.lower():
+                feature = features_importance_df2["Features"].iloc[i]
+                i += 1
+            dic["importance"] = feature
+            return render_template('dashboard_prof.html', dic_renseignement=dic, data_OK=data_OK, data_alerte=data_alerte)
 
         if route[0] == 'profil_eleve':
             identifiant_student = request.form["identifiant"]
             temps = request.form["temps"]
-            print(identifiant_student, temps)
-            dic = {"id_student" : identifiant_student, "date_perc": list(range(0, 110, 10))}
+            dic = {"id_student" : identifiant_student, "temps": temps}
             return render_template('dashboard_eleve.html', dic=dic)
 
     return render_template("index.html")
