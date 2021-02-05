@@ -1,143 +1,14 @@
 <!DOCTYPE html>
 <html>
-    <style>
-        div{
-            width: 80%;
-            margin: 15px auto; /*Centre les div dans la page*/
-        }
-
-        .box {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction:row;
-        }
-
-        .titre_boite {
-            display: block;
-            font-weight: bolder;
-            font-family: Arial;
-            text-align: center;
-            color: #ffffff;
-            font-size: 24px;
-        }
-
-        .titre{
-            text-align: center;
-            font-weight: bolder;
-            font-size:40px;
-        }
-
-        .sous_boite{
-            display: flex;
-            background-color: #00d994;
-            width: 25rem;
-            height: 30rem;
-            flex-direction: column;
-            padding: 0px 40px 0px 40px;
-        }
-
-
-        .slider {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 7px;
-            border-radius: 3px;  
-            background: #ffffff;
-            opacity: 0.7;
-            -webkit-transition: .2s;
-            transition: opacity .2s;
-        }
-
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 17px;
-            height: 17px;
-            border-radius: 50%; 
-            background: #ffffff;
-            cursor: pointer;
-        }
-
-        .slider::-moz-range-thumb {
-            width: 17px;
-            height: 17px;
-            border-radius: 50%;
-            background: #ffffff;
-            cursor: pointer;
-        }
-     
-        .bouton {
-            background-color: #00d994; /* Green */
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            border: 2px solid #ffffff;
-            font-weight: bolder;
-            font-family: Arial;
-            bottom:0;
-        }
-
-        .wrapper{
-            border-top: 0px;
-            text-align: center;
-        }
-
-        .dropdown {
-            width:150px;
-        }
-
-        select {
-            background-color:white;
-            color:#505050;
-            width: 120px;
-            border-radius: 5px 5px 5px 5px;
-        }
-
-        input[type=range].custom-slider {
-            -webkit-appearance: none;     /*nécessaire pour Chrome */
-            padding: 0;                   /* nécessaire pour IE */
-            font: inherit;                /* même rendu suivant font document */
-            outline:none;
-            background: white;             /* sert pour couleur de fond de la zone de déplacement */
-            box-sizing: border-box;       /* même modèle de boîte pour tous */
-            cursor: pointer;
-            border-radius: 10px 10px 10px 10px;
-            height: 10px;
-            width:250px;
-        }
-
-        .custom-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background: #00d994;
-            cursor: pointer;
-            border-color:white;
-        }
-
-        .custom-slider::-moz-range-thumb {
-            width: 17px;
-            height: 17px;
-            border-radius: 50%;
-            background: #00d994;
-            cursor: pointer;
-            border-color: white;
-        }
-    </style>
-
+    
     <head>
         <meta charset="utf-8">
-        <title>Tableau de bord de l'université</title>
         <!-- Favicons -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/css/style.css">
+        <!-- Title -->
+        <title>Tableau de bord de l'université</title>
     </head>
       
 
