@@ -3,7 +3,7 @@
     <style>
         div{
             width: 80%;
-            margin: 20px auto; /*Centre les div dans la page*/
+            margin: 15px auto; /*Centre les div dans la page*/
         }
 
         .box {
@@ -31,18 +31,12 @@
         .sous_boite{
             display: flex;
             background-color: #00d994;
-            width: 20rem;
+            width: 25rem;
             height: 30rem;
             flex-direction: column;
             padding: 0px 40px 0px 40px;
         }
 
-        .sous_boite_{
-            display: block;
-            background-color: #00d994;
-            width: 20rem;
-            height: 15rem;
-        }
 
         .slider {
             -webkit-appearance: none;
@@ -72,7 +66,70 @@
             background: #ffffff;
             cursor: pointer;
         }
-        
+     
+        .bouton {
+            background-color: #00d994; /* Green */
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            border: 2px solid #ffffff;
+            font-weight: bolder;
+            font-family: Arial;
+            bottom:0;
+        }
+
+        .wrapper{
+            border-top: 0px;
+            text-align: center;
+        }
+
+        .dropdown {
+            width:150px;
+        }
+
+        select {
+            background-color:white;
+            color:#505050;
+            width: 120px;
+            border-radius: 5px 5px 5px 5px;
+        }
+
+        input[type=range].custom-slider {
+            -webkit-appearance: none;     /*nécessaire pour Chrome */
+            padding: 0;                   /* nécessaire pour IE */
+            font: inherit;                /* même rendu suivant font document */
+            outline:none;
+            background: white;             /* sert pour couleur de fond de la zone de déplacement */
+            box-sizing: border-box;       /* même modèle de boîte pour tous */
+            cursor: pointer;
+            border-radius: 10px 10px 10px 10px;
+            height: 10px;
+            width:250px;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #00d994;
+            cursor: pointer;
+            border-color:white;
+        }
+
+        .custom-slider::-moz-range-thumb {
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background: #00d994;
+            cursor: pointer;
+            border-color: white;
+        }
     </style>
 
     <head>
@@ -85,71 +142,105 @@
       
 
     <body style="background-color:#ececec;">
-        <div class="titre">
-                Outils de gestion Moodle
-        </div>
+        <form action = "http://localhost:5000/index" method = "post">
+            <div class="titre">
+                    Outils de gestion Moodle
+            </div>
 
-        <div class="box">
+            <div class="box">
 
-            <!-- <div class="card bg-success px-3 pb-2 pt-3 mx-3 my-3" style="width: 25rem;">
-                <div class="titre_boite">
-                    Professeur
-                </div>
-            </div> -->
-
-            <div class="sous_boite">
-                <div class="titre_boite">
-                    Professeur
-                    <br/>
-                    <br/>
-                </div>
+                <div class="sous_boite">
+                    <div class="titre_boite">
+                        Professeur
+                        <br/>
+                        <br/>
+                    </div>
                 
-                <p>
-                    <img src="../static/avatars/img_code_module.png" width="35" height="35"> test
-                </p>
-                <p>
-                    <img src="../static/avatars/img_code_presentation.png" width="35" height="35"> test
-                </p>
+                    <p style="margin-bottom: 40px">
+                        <img src="../static/avatars/img_code_module.png" width="35" height="35"> &nbsp;&nbsp;
+                        Code module : &nbsp;&nbsp;<select name = "code_module"  style="width:137px">
+                            {% for item in dic_prof.code_module %}
+                            <option value="{{item}}">{{item}}</option>
+                            {% endfor %}
+                        </select>
+                    </p>
+                    <p style="margin-bottom: 50px">
+                        <img src="../static/avatars/img_code_presentation.png" width="35" height="35"> &nbsp;&nbsp;
+                        Code presentation : &nbsp;&nbsp; <select name = "code_presentation" style="width:100px">
+                            {% for item in dic_prof.code_presentation %}
+                            <option value="{{item}}">{{item}}</option>
+                            {% endfor %}
+                        </select>
+                        <br/>
+                    </p>
                     <!-- <div class="slidecontainer">
                         <input type="range" min="0" max="100" value="50" step="10" class="slider" id="myRange">
                     </div> -->
-                    <input type="range" list="tickmarks" value="0" max="100" min="0" step="10">
+                    <div class="wrapper">
 
-                    <datalist id="tickmarks">
-                        <option value="0" label="0%">
-                        <option value="10">
-                        <option value="20">
-                        <option value="30">
-                        <option value="40">
-                        <option value="50" label="50%">
-                        <option value="60">
-                        <option value="70">
-                        <option value="80">
-                        <option value="90">
-                        <option value="100" label="100%">
-                    </datalist>
-
-                </h2>
-                
-            </div>
-
-            <div class="sous_boite">
-                <div class="titre_boite">
-                    Elève
-                    <br/>
-                    <br/>
+                        <p style="margin-bottom: 60px">
+                            <input class="custom-slider" type="range" list="tickmarks" value="0" max="100" min="0" step="10" name="temps">
+                            <datalist id="tickmarks">
+                                <option value="0" label="0%">
+                                <option value="10">
+                                <option value="20">
+                                <option value="30">
+                                <option value="40">
+                                <option value="50" label="50%">
+                                <option value="60">
+                                <option value="70">
+                                <option value="80">
+                                <option value="90">
+                                <option value="100" label="100%">
+                            </datalist>
+                        </p>
+                    
+                    
+                        <button class="align-self-end bouton" type="submit" name="choix" value="profil_prof">Valider</button>
+                    </div>
                 </div>
 
-                <p>
-                    <img src="../static/avatars/avatar.png" width="25" height="25">
-                </p>
-                
-            </div>
-        </div>
+                <div class="sous_boite">
+                    <div class="titre_boite" style="margin-bottom: 50px">
+                        Elève
+                        <br/>
+                        <br/>
+                    </div>
 
-        <form action = "http://localhost:5000/index" method = "post">
-            <button type="submit" name="choix" value="profil_prof">Professeur</button>          
-            <button type="submit" name="choix" value="profil_eleve">Elève</button>
+                    <p style="margin-bottom: 96px">
+                        <img src="../static/avatars/avatar.png" width="25" height="25"> &nbsp;&nbsp;
+                        Identifiant : &nbsp;&nbsp;<select name = "identifiant" style="width:170px">
+                            {% for item in dic_eleve.id_student %}
+                            <option value="{{item}}">{{item}}</option>
+                            {% endfor %}
+                        </select>
+                    </p>
+
+                    <div class="wrapper">
+
+                        <p style="margin-bottom: 60px;">
+                            <input class="custom-slider" type="range" list="tickmarks" value="0" max="100" min="0" step="10" name="temps">
+                            <datalist id="tickmarks">
+                                <option value="0" label="0%">
+                                <option value="10">
+                                <option value="20">
+                                <option value="30">
+                                <option value="40">
+                                <option value="50" label="50%">
+                                <option value="60">
+                                <option value="70">
+                                <option value="80">
+                                <option value="90">
+                                <option value="100" label="100%">
+                            </datalist>
+                        </p>
+                    
+                    
+                        <button class="bouton" type="submit" name="choix" value="profil_eleve">Valider</button>  
+                    </div>
+                    
+                </div>
+            </div>
         </form>  
     </body>
 
