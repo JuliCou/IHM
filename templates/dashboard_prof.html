@@ -11,82 +11,111 @@
     </head>
 
     <body style="background-color:#ececec;">
-        <form action = "http://localhost:5000/index" method = "post">
-            <div class="titre">
-                    Dashboard professeur
+        <!-- ----- -->
+        <!-- TITRE -->
+        <!-- ----- -->
+        <div class="titre">
+            <form action = "http://localhost:5000/" method = "get">
+                Dashboard professeur
+                <button class="bouton_accueil" type="submit">Retour accueil</button>
+            </form>
+        </div>
+
+        <!-- ----- -->
+        <!-- Boite 1 : résumé -->
+        <!-- ----- -->
+        <div class="box_col" style="background-color: #00d994; height:20rem">
+            <!-- Sous-titre -->
+            <div class="titre_boite">
+                Récapitulatif général
+            </div>
+            
+            <div class="box">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <!-- Sous boite gauche -->
+                <div class="info_module" style="font-weight: bolder;">
+                    &nbsp;&nbsp; <img src="../static/avatars/img_code_module.png" width="20" height="20"> &nbsp;&nbsp; {{dic_renseignement.code_module}} <br><br>
+                    &nbsp;&nbsp; <img src="../static/avatars/img_code_presentation.png" width="20" height="20"> &nbsp;&nbsp; {{dic_renseignement.code_presentation}} <br><br>
+                    &nbsp;&nbsp; Evolution : {{dic_renseignement.temps}}%<br><br>
+                </div>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <!-- Sous boite milieu -->
+                <div class="info_module">
+                    &nbsp;&nbsp; <B> {{dic_renseignement.nb_students}}</B> étudiants <br><br>
+                    &nbsp;&nbsp; <B>{{dic_renseignement.nb_students_reussite}} </B> étudiants en réussite<br><br>
+                    &nbsp;&nbsp; <B>{{dic_renseignement.nb_students_alerte}}</B> étudiants en difficulté<br><br>
+                </div>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <!-- Sous boite droite -->
+                <div class="info_module">
+                    &nbsp;&nbsp; Précision du modèle : <B>{{dic_renseignement.precision}}%</B> <br><br>
+                    &nbsp;&nbsp; Caractéristiques importantes : <br><br>
+                    &nbsp;&nbsp;  <B>{{dic_renseignement.importance}}</B> <br><br>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+
+
+        <!-- ----- -->
+        <!-- Boite 2 : résumé élèves-->
+        <!-- ----- -->
+        <div class="box">
+
+            <!-- Sous boite élèves difficulté -->
+            <div class="boite_eleves">
+                <!-- Sous-titre -->
+                <div class="titre_boite">
+                    <br>
+                    Elèves en difficulté
+                </div>
+
+                <!-- Fiches élèves -->
+                <div class="flex-container" style="overflow: scroll;">
+                    <div class="row justify-content-center align-self-center flex-fill">
+                        {% for eleve in data_alerte %}
+                        <div class="card bg-warning px-3 pb-2 pt-3 mx-3 my-3" style="width: 30rem;">
+                            <p>Elève : {{eleve.id_student}}</p>
+                            <p>{{eleve.predicted_result}}</p>
+                            <form action="http://localhost:5000/prof_voir_eleve" method="POST">
+                                <input type="hidden" name="data_general" value='{{dic_renseignement}}'>
+                                <button class="bouton_info" type="submit" name="data_eleve" value='{{eleve}}'>Voir plus</button>
+                            </form>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
 
-            <div class="box_col">
-
-                <div class="box_col"  style="background-color: #00d994">
-                    <div class="titre_boite">
-                        Récapitulatif général
-                    </div>
-
-                    <div class="box">
-                        <div  style="background-color: #ececec; font-weight: bolder;">
-                            &nbsp;&nbsp; <img src="../static/avatars/img_code_module.png" width="20" height="20"> &nbsp;&nbsp; {{dic_renseignement.code_module}} <br><br>
-                            &nbsp;&nbsp; <img src="../static/avatars/img_code_presentation.png" width="20" height="20"> &nbsp;&nbsp; {{dic_renseignement.code_presentation}} <br><br>
-                            &nbsp;&nbsp; Evolution : {{dic_renseignement.temps}}%<br><br>
-                        </div>
-
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                    
-                        <div style="background-color: #ececec">
-                            &nbsp;&nbsp; <B> {{dic_renseignement.nb_students}}</B> étudiants <br><br>
-                            &nbsp;&nbsp; <B>{{dic_renseignement.nb_students_reussite}} </B> étudiants en réussite<br><br>
-                            &nbsp;&nbsp; <B>{{dic_renseignement.nb_students_alerte}}</B> étudiants en difficulté<br><br>
-                        </div>
-
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-
-                        <div style="background-color: #ececec">
-                            &nbsp;&nbsp; Précision du modèle : <B>{{dic_renseignement.precision}}%</B> <br><br>
-                            &nbsp;&nbsp; Caractéristiques importantes : <br><br>
-                            &nbsp;&nbsp;  <B>{{dic_renseignement.importance}}</B> <br><br>
-                        </div>
-                    </div>
-
+                <!-- Sous boite élèves réussite -->                 
+                <div class="boite_eleves">
+                    <!-- Sous-titre -->
+                <div class="titre_boite">
+                    <br>
+                    Elèves en réussite
                 </div>
-                
-                <div class="box"  style="background-color: #00d994">
-                                  
-                    <div class="sous_boite">
-                        <div class="titre_boite">
-                            Elèves en difficulté
-                        </div>
-                        <div class="flex-container" style="overflow: scroll;">
-                            <div class="row justify-content-center align-self-center flex-fill">
-                                {% for eleve in data_alerte %}
-                                <div class="card bg-warning px-3 pb-2 pt-3 mx-3 my-3" style="width: 30rem;">
-                                    <p>{{eleve.id_student}}</p>
-                                    <p>{{eleve.predicted_result}}</p>
-                                    <p>{{eleve.final_result}}</p>
-                                    {% for pb in eleve.proba %}
-                                        <p>{{pb.proba}}</p>
-                                    {% endfor %}
-                                    <form action="http://localhost:5000/prof_voir_eleve" method="POST">
-                                        <input type="hidden" name="data_eleve" value='{{eleve}}'>
-                                        <input type="hidden" name="data_general" value='{{donnees}}'>
-                                        <div class="col text-center"><input class="btn btn-link" type="submit" value="Voir plus"></div>
-                                    </form>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
 
-                    </div>
-                    
-                    <div class="sous_boite">
-                        <div class="titre_boite">
-                            Elèves en réussite
+                <!-- Fiches élèves -->
+                <div class="flex-container" style="overflow: scroll;">
+                    <div class="row justify-content-center align-self-center flex-fill">
+                        {% for eleve in data_OK %}
+                        <div class="card bg-warning px-3 pt-2 mx-3 my-3" style="width: 20rem;">
+                            <p>Elève : {{eleve.id_student}}</p>
+                            <p>{{eleve.predicted_result}}</p>
+                            <form action="http://localhost:5000/prof_voir_eleve" method="POST">
+                                <input type="hidden" name="data_general" value='{{dic_renseignement}}'>
+                                <button class="bouton_info" type="submit" name="data_eleve" value='{{eleve}}'>Voir plus</button>
+                            </form>
                         </div>
-
+                        {% endfor %}
                     </div>
-                    
-                    
                 </div>
+
             </div>
-        </form>  
+
+        </div>
+
     </body>
 </html>

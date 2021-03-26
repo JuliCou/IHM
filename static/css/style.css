@@ -1,6 +1,6 @@
 div{
-    width: 80%;
-    margin: 15px auto; /*Centre les div dans la page*/
+    width: 100%;
+    margin: 5px auto; /*Centre les div dans la page*/
 }
 
 .box {
@@ -8,6 +8,19 @@ div{
     align-items: center;
     justify-content: center;
     flex-direction:row;
+    flex-basis: auto;
+    box-sizing: content-box;
+}
+
+.box_col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-basis: auto;
+    box-sizing: content-box;
+    width:90%;
+    height:30rem;
 }
 
 .titre_boite {
@@ -34,6 +47,29 @@ div{
     padding: 0px 40px 0px 40px;
 }
 
+.info_module{
+    margin: 25px auto; /*Centre les div dans la page*/
+    background-color: #ececec;
+    padding: 5px 5px 5px 5px;
+}
+
+.boite_eleves{
+    display: flex;
+    background-color:#00d994;
+    width:30rem;
+    height: 30rem;
+    flex-direction: column;
+    padding: 0px 40px 0px 40px;
+}
+
+.sous_boite_2{
+    display: flex;
+    background-color: #00d994;
+    width: 25rem;
+    height: 30rem;
+    flex-direction: column;
+    padding: 0px 40px 0px 40px;
+}
 
 .slider {
     -webkit-appearance: none;
@@ -62,6 +98,35 @@ div{
     border-radius: 50%;
     background: #ffffff;
     cursor: pointer;
+}
+
+.bouton_info {/* Green */
+    background-color: #ffc107;
+    color: #624900;
+    padding: 4px 4px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin: auto;
+    border: #2e2d2c;
+    font-weight: bolder;
+    font-family: Arial;
+}
+
+.bouton_accueil {/* Green */
+    background-color: #ececec;
+    color: #00d994;
+    padding: 4px 4px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin: auto;
+    border: #00d994;
+    font-weight: bolder;
+    font-family: Arial;
+    border-radius: 20%;
 }
 
 .bouton {

@@ -1,53 +1,72 @@
 <!DOCTYPE html>
 <html>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-       
-        .p{color: blue}
-       
-        /* Create two equal columns that floats next to each other */
-        .column {
-            float: left;
-            width: 30%;
-        }
-       
-        /*  Clear floats after the columns*/
-        .row:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-    </style>
     <head>
-        <title>Zone élève : recherche de l'identifiant</title>
+        <meta charset="utf-8">
+        <!-- Scripts -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/css/style.css">
+        <!-- Nom de l'onglet -->
+        <title>Tableau de bord Elève</title>
     </head>
    
-    <body>
-        <form action = "http://localhost:5000/formulaire_eleve" method = "post">
-            <h2><b>Recherche de l'élève</b> </h2>
-            <p>
-                <p>Identifiant de l'élève :
-                    <input type="text" name="id_student" required></p>
-                </p>
-                <p>Temps - avancée dans le module : <select name = "date_perc">
-                    {% for item in dic.date_perc %}
-                    <option value="{{item}}">{{item}}</option>
-                    {% endfor %}
-                </select></p>
-                <input type = "submit" value = "Valider" />
-                <p>Liste des identifiants d'élèves : </p>
-                {% for item in dic.id_student %}
-                {{item}}
-                {% endfor %}
-                <!-- <p>Identifiant élève : <select name = "id_student">
-                    {% for item in dic.id_student %}
-                    <option value="{{item}}">{{item}}</option>
-                    {% endfor %}
-                </select></p> -->
-            </p>
-      </form>
-   </body>
+
+    <body style="background-color:#ececec;">
+        <!-- ----- -->
+        <!-- TITRE -->
+        <!-- ----- -->
+        <div class="titre">
+            <form action = "http://localhost:5000/" method = "get">
+                Dashboard élève
+                <button class="bouton_accueil" type="submit">Retour accueil</button>
+            </form>
+        </div>
+        
+        {% for module in data %}
+        <!-- ----- -->
+        <!-- Boite 1 : résumé -->
+        <!-- ----- -->
+        <div class="box_col" style="background-color: #00d994">
+            <!-- Sous-titre -->
+            <div class="titre_boite" style="text-align:left">
+                <br>&nbsp;&nbsp;&nbsp;&nbsp;
+                {{module.code_module}} - {{module.code_presentation}}
+            </div>
+            
+            <div class="box">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <!-- Sous boite gauche -->
+                <div style="width:30rem; text-align:center">
+                    &nbsp;&nbsp; <img src={{module.img_pie}} width="300" height="auto"> &nbsp;&nbsp;<br>
+                    {{module.reussite}} % chance de valider<br><br>
+                    {{module.echec}} % risque d'échec<br><br>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <!-- Sous boite milieu -->
+                <div style="width:30rem;">
+                    &nbsp;&nbsp; <img src={{module.img_evolution}} width="350" height="auto"> &nbsp;&nbsp;
+                </div>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <!-- Sous boite droite -->
+                <div class="info_module" style="width:30rem;">
+                    &nbsp;&nbsp;  <B style="font-size: 18pt;">Conseils</B> <br><br>
+                    <p style="text-align:center;font-size: 14pt;font-weight: bold;"> Facteurs d'amélioration</p>
+                        {% for facteur_pos in module.conseil_pos %}
+                        &nbsp;&nbsp;  {{facteur_pos}} <br>
+                        {% endfor %}
+                        <br>
+                    <p style="text-align:center;font-size: 14pt;font-weight: bold;"> Facteurs de ralentissement</p>
+                        {% for facteur_neg in module.conseil_neg %}
+                        &nbsp;&nbsp;  {{facteur_neg}} <br>
+                        {% endfor %}
+                        <br>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+        {% endfor %}
+
+
+    </body>
 </html>
