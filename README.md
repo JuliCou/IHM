@@ -10,5 +10,10 @@ requirements.txt
     $  pip install -r requirements.txt
 ```
 
+## Launch API
+```
+    $  python api.py
+```
+
 ## Data
 https://analyse.kmi.open.ac.uk/open_dataset
