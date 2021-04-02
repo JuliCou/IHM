@@ -120,11 +120,12 @@ def traitement_eleve(identifiant_eleve, temps, code_module=None, code_presentati
         for j in range(len(expl.targets)):
             if expl.targets[j].target == "Fail":
                 for feature in expl.targets[j].feature_weights.pos:
-                    if not "BIAS" in feature.feature or not "id_student" in feature.feature or not "date" in feature.feature:
+                    print(feature.feature, type(feature.feature))
+                    if not "BIAS" in feature.feature and not "id_student" in feature.feature and not "date" in feature.feature:
                         facteurs_neg.append(feature.feature)
             if expl.targets[j].target == "Pass":
                 for feature in expl.targets[j].feature_weights.pos:
-                    if not "BIAS" in feature.feature or not "id_student" in feature.feature or not "date" in feature.feature:
+                    if not "BIAS" in feature.feature and not "id_student" in feature.feature and not "date" in feature.feature:
                         facteurs_pos.append(feature.feature)
         dic["conseil_pos"] = facteurs_pos[:2]
         dic["conseil_neg"] = facteurs_neg[:2]
@@ -226,7 +227,6 @@ def index():
         identifiant_student = list(dic_c_df[time_range[0]].id_student.unique())
         code_module = list(studentInfo.code_module.unique())
         code_presentation = list(studentInfo.code_presentation.unique())
-        
         dic_prof = {"code_module": code_module, "code_presentation":code_presentation}
         dic_eleve = {"id_student" : identifiant_student[:100]}
         
