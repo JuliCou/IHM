@@ -173,6 +173,25 @@ input[type=range].custom-slider {
     width:250px;
 }
 
+/* style datalist */
+input[type=range] + datalist {
+    display: block;
+    margin-top: -4px;
+}
+input[type=range] + datalist option {
+    display: inline-block;
+    width: calc((100% - 20px) / (var(--list-length) - 1));
+    text-align: center;
+}
+input[type=range] + datalist option:first-child {
+    width: calc((100% - 20px) / ((var(--list-length) - 1) * 2) - 15px);
+    text-align: left;
+}
+input[type=range] + datalist option:last-child {
+    width: calc((100% - 20px) / ((var(--list-length) - 1) * 2) - 15px);
+    text-align: right;
+}
+
 .custom-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
