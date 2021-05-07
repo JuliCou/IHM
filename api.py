@@ -120,7 +120,6 @@ def traitement_eleve(identifiant_eleve, temps, code_module=None, code_presentati
         for j in range(len(expl.targets)):
             if expl.targets[j].target == "Fail":
                 for feature in expl.targets[j].feature_weights.pos:
-                    print(feature.feature, type(feature.feature))
                     if not "BIAS" in feature.feature and not "id_student" in feature.feature and not "date" in feature.feature:
                         facteurs_neg.append(feature.feature)
             if expl.targets[j].target == "Pass":
