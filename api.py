@@ -12,7 +12,7 @@ from sklearn.metrics import accuracy_score
 import time
 
 
-
+# Création de l'API Flask
 app = Flask(__name__)
 
 # Importation des données
@@ -82,9 +82,11 @@ def traitement_eleve(identifiant_eleve, temps, code_module=None, code_presentati
         echec = proba[0][1] + proba[0][3]
         dic["reussite"] = round(reussite*100)
         dic["echec"] = round(echec*100)
+        # Création du graphique à afficher
         fig = plt.figure(figsize=(4, 4))
         plt.pie([reussite, echec], explode=[0, 0.15], colors=["#ffc107", "#f1145c"], startangle=90)
         fig.set_facecolor("#00d994")
+        # Enregistrement du graphique à afficher en local
         nom_image_pie = "pie" + str(time.time()) + ".jpeg"
         plt.savefig("static/figures/" + nom_image_pie, bbox_inches='tight')
         dic["img_pie"] = "../static/figures/" + nom_image_pie
@@ -103,6 +105,7 @@ def traitement_eleve(identifiant_eleve, temps, code_module=None, code_presentati
                         reussite_t += proba_t[0][j]*100
                 suivi_reussite_temps.append(reussite_t)
                 x.append(t)
+        # Sauvegarde du graphique - évolution prédiction dans le temps
         fig = plt.figure(figsize=(4, 4))
         plt.plot(x, suivi_reussite_temps, color="#00d994")
         xlim(0, 100)
@@ -205,6 +208,7 @@ def routage():
 def prof_voir_eleve():
     """Index function"""
     if request.method == 'POST':
+        # Récupération des données du formulaire
         donnees_cours = eval(request.form.getlist("data_general")[0])
         donnees_eleves = eval(request.form.getlist("data_eleve")[0])
         identifiant_eleve = donnees_eleves["id_student"]
