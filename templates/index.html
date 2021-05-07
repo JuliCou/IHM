@@ -13,21 +13,29 @@
       
 
     <body style="background-color:#ececec;">
+            <!-- ----- -->
+            <!-- TITRE -->
+            <!-- ----- -->
             <div class="titre">
                     Outils de gestion Moodle
             </div>
 
             <div class="box">
 
+                <!-- ----- -->
+                <!-- Boite gauche : professeur -->
+                <!-- ----- -->
                 <div class="sous_boite">
                     <form action = "http://localhost:5000/index" method = "post">
+                    <!-- Titre boite -->
                     <div class="titre_boite">
                         <br>
                         Professeur
                         <br/>
                         <br/>
                     </div>
-                
+
+                    <!-- Code module -->
                     <p style="margin-bottom: 40px">
                         <img src="../static/avatars/img_code_module.png" width="35" height="35"> &nbsp;&nbsp;
                         Code module : &nbsp;&nbsp;<select name = "code_module"  style="width:137px">
@@ -36,6 +44,8 @@
                             {% endfor %}
                         </select>
                     </p>
+
+                    <!-- Code présentation -->
                     <p style="margin-bottom: 50px">
                         <img src="../static/avatars/img_code_presentation.png" width="35" height="35"> &nbsp;&nbsp;
                         Code presentation : &nbsp;&nbsp; <select name = "code_presentation" style="width:100px">
@@ -45,9 +55,8 @@
                         </select>
                         <br/>
                     </p>
-                    <!-- <div class="slidecontainer">
-                        <input type="range" min="0" max="100" value="50" step="10" class="slider" id="myRange">
-                    </div> -->
+
+                    <!-- Temps d'évolution - slidebar -->
                     <div class="wrapper">
 
                         <p style="margin-bottom: 60px">
@@ -65,8 +74,12 @@
                     </form>
                 </div>
             
+                <!-- ----- -->
+                <!-- Boite droite : élève -->
+                <!-- ----- -->
                 <div class="sous_boite">
                     <form action = "http://localhost:5000/index" method = "post">
+                    <!-- Titre boîte -->
                     <div class="titre_boite" style="margin-bottom: 50px">
                         <br>
                         Elève
@@ -74,6 +87,7 @@
                         <br/>
                     </div>
 
+                    <!-- Identité élève -->
                     <p style="margin-bottom: 96px">
                         <img src="../static/avatars/avatar.png" width="25" height="25"> &nbsp;&nbsp;
                         Identifiant : &nbsp;&nbsp;<select name = "identifiant" style="width:170px">
@@ -83,6 +97,7 @@
                         </select>
                     </p>
 
+                    <!-- Temps d'évolution - slidebar -->
                     <div class="wrapper">
 
                         <p style="margin-bottom: 60px;">
